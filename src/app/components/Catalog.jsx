@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from 'react';
 
+
 export default function Catalog() {
   const [products, setProducts] = useState([]);
 
 useEffect(() => {
     fetch("/api/products")
     .then(r=> r.json())
-    .then(setProducts)
-    .catc(console.error);
+    .then(data => setProducts(Array.isArray(data) ? data : data.products || []))
+    .catch(console.error);
 }, []);
 
   return (
